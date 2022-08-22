@@ -5,6 +5,7 @@
 
 namespace sparrow::cmd {
 
+/// this is a tagged union for representing a bool/string in an efficient way.
 class StrOrBool {
 public:
 	enum Type { BOOL, STR };
