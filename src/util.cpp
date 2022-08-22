@@ -9,4 +9,5 @@ void exit_info(const char *info, int exit_code) {
 	exit(exit_code);
 }
 
-}
+} // namespace sparrow
+
