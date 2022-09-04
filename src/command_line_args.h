@@ -42,13 +42,25 @@ private:
 	StrOrBool value_;
 };
 
-/// A global variable for holding command line arguments
-extern std::unordered_map<const char *, CmdArgument> cmd_arguments;
+std::unordered_map<const char *, CmdArgument>
+parse_cmd_arguments(int argc, const char **argv);
 
-/// the parsed result is stored in global variable `sparrow::cmd_arguments`.
-bool parse_arguments(const int argc, const char **argv);
+enum class CmdArgParseResult {
+	MORE,
+	FINISHED,
+	ERROR_MISSING_VALUE,
+	ERROR_UNKNOWN_OPTION
+};
 
-void print_cmd_arguments();
+CmdArgParseResult parse_one_cmd_argument(
+	int &argc,
+	const char **&argv,
+	std::unordered_map<const char *, CmdArgument> &result
+);
+
+void print_cmd_arguments(
+	std::unordered_map<const char *, CmdArgument> &cmd_arguments
+);
 
 
 } // namespace sparrow::cmd
