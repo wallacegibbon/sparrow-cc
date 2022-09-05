@@ -42,8 +42,9 @@ private:
 	StrOrBool value_;
 };
 
-std::unordered_map<const char *, CmdArgument>
-parse_cmd_arguments(int argc, const char **argv);
+using CmdArgMap = std::unordered_map<std::string, CmdArgument>;
+
+CmdArgMap parse_cmd_arguments(int argc, const char **argv);
 
 enum class CmdArgParseResult {
 	MORE,
@@ -55,12 +56,10 @@ enum class CmdArgParseResult {
 CmdArgParseResult parse_one_cmd_argument(
 	int &argc,
 	const char **&argv,
-	std::unordered_map<const char *, CmdArgument> &result
+	CmdArgMap &result
 );
 
-void print_cmd_arguments(
-	std::unordered_map<const char *, CmdArgument> &cmd_arguments
-);
+void print_cmd_arguments(CmdArgMap &cmd_arguments);
 
 
 } // namespace sparrow::cmd

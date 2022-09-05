@@ -18,20 +18,16 @@ std::string CmdArgument::stringify() {
 		return result + " ";
 }
 
-void print_cmd_arguments(
-	std::unordered_map<const char *, CmdArgument> &cmd_arguments
-) {
+void print_cmd_arguments(CmdArgMap &cmd_arguments) {
 	std::cout << "The command line arguments:" << std::endl << "\t";
-
 	for (auto &kv : cmd_arguments)
 		std::cout << kv.second.stringify();
 
 	std::cout << std::endl;
 }
 
-std::unordered_map<const char *, CmdArgument>
-parse_cmd_arguments(int argc, const char **argv) {
-	std::unordered_map<const char *, CmdArgument> result;
+CmdArgMap parse_cmd_arguments(int argc, const char **argv) {
+	CmdArgMap result;
 	CmdArgParseResult status = CmdArgParseResult::MORE;
 	while (status == CmdArgParseResult::MORE)
 		status = parse_one_cmd_argument(argc, argv, result);
@@ -61,7 +57,7 @@ inline void forward_argument_cursor(
 CmdArgParseResult parse_one_cmd_argument(
 	int &argc,
 	const char **&argv,
-	std::unordered_map<const char *, CmdArgument> &result
+	CmdArgMap &result
 ) {
 	if (argc == 0)
 		return CmdArgParseResult::FINISHED;
